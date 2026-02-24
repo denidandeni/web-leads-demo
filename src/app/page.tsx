@@ -131,8 +131,8 @@ export default function AssessmentApp() {
     setOtpLoading(true);
     setOtpError("");
 
-    // Simulate Cloudflare Worker calling a 3rd party SMS/WhatsApp API
-    // D1 would store the OTP hash and timestamp here.
+    // Simulate backend processing calling a 3rd party SMS/WhatsApp API
+    // Leads database would store the OTP hash and timestamp here.
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     setOtpLoading(false);
@@ -144,10 +144,10 @@ export default function AssessmentApp() {
     setOtpError("");
 
     if (otpInput === "123456") {
-      // Simulate Final Cloudflare Worker processing:
-      // 1. Validate OTP against D1 DB
+      // Simulate Final backend processing:
+      // 1. Validate OTP against Database
       // 2. Compute final score
-      // 3. Send Webhook (e.g., to Google Sheets)
+      // 3. Send Webhook (e.g., to CRM or Spreadsheet)
 
       const totalScore = answers.reduce((acc, curr) => acc + curr.points, 0);
       const payload = {
@@ -156,7 +156,7 @@ export default function AssessmentApp() {
         answers: answers
       };
 
-      console.log("=== WEBHOOK PAYLOAD (Cloudflare Worker -> Google Sheets) ===");
+      console.log("=== WEBHOOK PAYLOAD (Backend -> CRM/Sheets) ===");
       console.log(JSON.stringify(payload, null, 2));
 
       setCurrentStep("RESULT");
@@ -194,8 +194,8 @@ export default function AssessmentApp() {
         <ArrowRight className="group-hover:translate-x-1 transition-transform" />
       </button>
 
-      <div className="pt-8 text-sm text-slate-400 font-medium">
-        Powered by the modern Cloudflare Stack
+      <div className="pt-8 text-sm text-slate-400 font-medium italic">
+        For Demo Purposes Only
       </div>
     </div>
   );
@@ -298,7 +298,7 @@ export default function AssessmentApp() {
             className="w-full flex items-center justify-center py-4 font-bold text-indigo-600 bg-indigo-50 border-2 border-indigo-100 rounded-xl transition-all hover:bg-indigo-100 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
           >
             {otpLoading ? (
-              <><Loader2 className="animate-spin mr-2 w-5 h-5" /> Sending OTP via Cloudflare Worker...</>
+              <><Loader2 className="animate-spin mr-2 w-5 h-5" /> Sending OTP...</>
             ) : (
               "Send OTP via WhatsApp"
             )}
@@ -442,7 +442,7 @@ export default function AssessmentApp() {
           Growth<span className="text-indigo-600">Stack</span>
         </div>
         <div className="text-xs font-semibold text-slate-400 border border-slate-200 px-3 py-1 rounded-full">
-          Cloudflare Stack Demo
+          For Demo Purposes Only
         </div>
       </header>
 
