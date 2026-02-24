@@ -115,7 +115,7 @@ export default function AssessmentApp() {
     setAnswers(newAnswers);
 
     if (currentQuestionIndex < QUESTIONS.length - 1) {
-      setTimeout(() => setCurrentQuestionIndex((prev) => prev + 1), 300); // 300ms smooth transition
+      setTimeout(() => setCurrentQuestionIndex((prev) => prev + 1), 300);
     } else {
       setTimeout(() => setCurrentStep("LEAD_CAPTURE"), 300);
     }
@@ -169,32 +169,41 @@ export default function AssessmentApp() {
   const calculateScore = () => answers.reduce((acc, curr) => acc + curr.points, 0);
 
   const getCategory = (score: number) => {
-    if (score <= 40) return { title: "High Risk", color: "text-slate-500", bg: "bg-slate-100" };
-    if (score <= 70) return { title: "Moderate Coverage", color: "text-indigo-500", bg: "bg-indigo-50" };
-    return { title: "Fully Protected", color: "text-emerald-500", bg: "bg-emerald-50" };
+    if (score <= 40) return { title: "High Risk", color: "text-red-700", bg: "bg-red-50" };
+    if (score <= 70) return { title: "Moderate Coverage", color: "text-amber-700", bg: "bg-amber-50" };
+    return { title: "Fully Protected", color: "text-emerald-700", bg: "bg-emerald-50" };
   };
 
   // --- Render Functions ---
   const renderLanding = () => (
     <div className="flex flex-col items-center text-center space-y-8 animate-in fade-in duration-700 zoom-in-95">
-      <div className="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-4">
-        <BarChart size={36} />
+      {/* Decorative Islamic Pattern */}
+      <div className="w-24 h-24 relative flex items-center justify-center mb-2">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full opacity-10 animate-pulse" />
+        <div className="absolute inset-2 border-2 border-amber-600/30 rounded-full" />
+        <div className="relative w-14 h-14 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full flex items-center justify-center text-white shadow-lg shadow-amber-900/20">
+          <ShieldCheck size={28} />
+        </div>
       </div>
-      <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight leading-tight">
-        Discover Your <br /><span className="text-indigo-600">Financial Security Score</span>
-      </h1>
-      <p className="text-lg text-slate-500 max-w-md mx-auto">
-        Take our 2-minute assessment to identify gaps in your coverage and protect your family's future.
+
+      <div className="space-y-3">
+        <div className="text-sm font-bold uppercase tracking-[0.25em] text-amber-700/70">Assessment Kesiapan Finansial</div>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-stone-800 tracking-tight leading-tight">
+          Discover Your <br /><span className="text-amber-800">Financial Security Score</span>
+        </h1>
+      </div>
+      <p className="text-lg text-stone-500 max-w-md mx-auto leading-relaxed">
+        Take our 2-minute assessment to identify gaps in your coverage and protect your family&apos;s future.
       </p>
       <button
         onClick={handleStart}
-        className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-indigo-600 rounded-2xl overflow-hidden transition-all hover:bg-indigo-700 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-indigo-300"
+        className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl overflow-hidden transition-all hover:from-amber-800 hover:to-amber-950 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-300 shadow-lg shadow-amber-900/20"
       >
         <span className="mr-2 text-lg">Start Assessment</span>
         <ArrowRight className="group-hover:translate-x-1 transition-transform" />
       </button>
 
-      <div className="pt-8 text-sm text-slate-400 font-medium italic">
+      <div className="pt-8 text-sm text-stone-400 font-medium italic">
         For Demo Purposes Only
       </div>
     </div>
@@ -207,20 +216,20 @@ export default function AssessmentApp() {
     return (
       <div className="w-full max-w-xl mx-auto space-y-8 animate-in slide-in-from-right-8 duration-500">
         <div className="space-y-2">
-          <div className="flex justify-between text-sm font-semibold text-slate-500">
+          <div className="flex justify-between text-sm font-semibold text-stone-500">
             <span>Question {currentQuestionIndex + 1} of {QUESTIONS.length}</span>
-            <span className="text-indigo-600">{Math.round(progress)}% Completed</span>
+            <span className="text-amber-700">{Math.round(progress)}% Completed</span>
           </div>
-          <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
             <div
-              className="h-full bg-indigo-600 rounded-full transition-all duration-500 ease-out"
+              className="h-full bg-gradient-to-r from-amber-600 to-amber-800 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
-        <div className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100">
-          <h2 className="text-2xl font-bold text-slate-800 mb-8 leading-relaxed">
+        <div className="bg-white rounded-3xl p-8 shadow-xl shadow-stone-200/50 border border-stone-100">
+          <h2 className="text-2xl font-bold text-stone-800 mb-8 leading-relaxed">
             {question.text}
           </h2>
           <div className="space-y-3">
@@ -228,10 +237,10 @@ export default function AssessmentApp() {
               <button
                 key={i}
                 onClick={() => handleAnswer(opt)}
-                className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-slate-100 text-left text-slate-700 font-medium transition-all hover:border-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 active:scale-[0.98]"
+                className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-stone-100 text-left text-stone-700 font-medium transition-all hover:border-amber-700 hover:bg-amber-50 hover:text-amber-800 active:scale-[0.98]"
               >
                 <span>{opt.text}</span>
-                <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-indigo-600" />
+                <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity text-amber-700" />
               </button>
             ))}
           </div>
@@ -242,39 +251,39 @@ export default function AssessmentApp() {
 
   const renderLeadCapture = () => (
     <div className="w-full max-w-md mx-auto animate-in slide-in-from-bottom-8 duration-500">
-      <div className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6 text-center">
-        <div className="w-16 h-16 bg-slate-50 text-slate-600 rounded-full flex items-center justify-center mx-auto mb-2">
+      <div className="bg-white rounded-3xl p-8 shadow-xl shadow-stone-200/50 border border-stone-100 space-y-6 text-center">
+        <div className="w-16 h-16 bg-amber-50 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-2">
           <ShieldCheck size={32} />
         </div>
-        <h2 className="text-2xl font-bold text-slate-800">Almost there!</h2>
-        <p className="text-slate-500">Enter your details to receive your personalized protection report and score.</p>
+        <h2 className="text-2xl font-bold text-stone-800">Almost there!</h2>
+        <p className="text-stone-500">Enter your details to receive your personalized protection report and score.</p>
 
         <form onSubmit={handleLeadSubmit} className="space-y-4 text-left">
           <div className="space-y-1.5">
-            <label className="text-sm font-bold text-slate-700 ml-1">Full Name</label>
+            <label className="text-sm font-bold text-stone-700 ml-1">Full Name</label>
             <input
               type="text"
               required
               value={leadName}
               onChange={(e) => setLeadName(e.target.value)}
-              className="w-full px-5 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-xl focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors text-slate-800 font-medium"
+              className="w-full px-5 py-3.5 bg-stone-50 border-2 border-stone-100 rounded-xl focus:outline-none focus:border-amber-700 focus:bg-white transition-colors text-stone-800 font-medium"
               placeholder="e.g. Jane Doe"
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-bold text-slate-700 ml-1">WhatsApp Number</label>
+            <label className="text-sm font-bold text-stone-700 ml-1">WhatsApp Number</label>
             <input
               type="tel"
               required
               value={leadPhone}
               onChange={(e) => setLeadPhone(e.target.value)}
-              className="w-full px-5 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-xl focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors text-slate-800 font-medium"
-              placeholder="+1 (555) 000-0000"
+              className="w-full px-5 py-3.5 bg-stone-50 border-2 border-stone-100 rounded-xl focus:outline-none focus:border-amber-700 focus:bg-white transition-colors text-stone-800 font-medium"
+              placeholder="+62 812 3456 7890"
             />
           </div>
           <button
             type="submit"
-            className="w-full flex items-center justify-center py-4 font-bold text-white bg-indigo-600 rounded-xl transition-all hover:bg-indigo-700 active:scale-[0.98] mt-2"
+            className="w-full flex items-center justify-center py-4 font-bold text-white bg-gradient-to-r from-amber-700 to-amber-900 rounded-xl transition-all hover:from-amber-800 hover:to-amber-950 active:scale-[0.98] mt-2 shadow-lg shadow-amber-900/20"
           >
             Continue to Verification
           </button>
@@ -285,9 +294,9 @@ export default function AssessmentApp() {
 
   const renderOtpVerification = () => (
     <div className="w-full max-w-md mx-auto animate-in zoom-in-95 duration-500">
-      <div className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 text-center space-y-6">
-        <h2 className="text-2xl font-bold text-slate-800">Verify Your Number</h2>
-        <p className="text-slate-500 text-sm">
+      <div className="bg-white rounded-3xl p-8 shadow-xl shadow-stone-200/50 border border-stone-100 text-center space-y-6">
+        <h2 className="text-2xl font-bold text-stone-800">Verify Your Number</h2>
+        <p className="text-stone-500 text-sm">
           We need to verify <strong>{leadPhone}</strong> to ensure secure delivery of your results.
         </p>
 
@@ -295,7 +304,7 @@ export default function AssessmentApp() {
           <button
             onClick={handleSendOtp}
             disabled={otpLoading}
-            className="w-full flex items-center justify-center py-4 font-bold text-indigo-600 bg-indigo-50 border-2 border-indigo-100 rounded-xl transition-all hover:bg-indigo-100 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
+            className="w-full flex items-center justify-center py-4 font-bold text-amber-800 bg-amber-50 border-2 border-amber-100 rounded-xl transition-all hover:bg-amber-100 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
           >
             {otpLoading ? (
               <><Loader2 className="animate-spin mr-2 w-5 h-5" /> Sending OTP...</>
@@ -306,22 +315,22 @@ export default function AssessmentApp() {
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-4 animate-in fade-in duration-300">
             <div className="space-y-1.5 text-left">
-              <label className="text-sm font-bold text-slate-700 ml-1">6-Digit Code</label>
+              <label className="text-sm font-bold text-stone-700 ml-1">6-Digit Code</label>
               <input
                 type="text"
                 maxLength={6}
                 required
                 value={otpInput}
-                onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ''))} // only numbers
-                className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-xl focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors text-slate-800 font-bold tracking-widest text-center text-xl"
+                onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ''))}
+                className="w-full px-5 py-4 bg-stone-50 border-2 border-stone-100 rounded-xl focus:outline-none focus:border-amber-700 focus:bg-white transition-colors text-stone-800 font-bold tracking-widest text-center text-xl"
                 placeholder="123456"
               />
               {otpError && <p className="text-red-500 text-sm mt-1">{otpError}</p>}
-              <p className="text-xs text-slate-400 text-center mt-2">Demo usage: enter 123456.</p>
+              <p className="text-xs text-stone-400 text-center mt-2">Demo usage: enter 123456.</p>
             </div>
             <button
               type="submit"
-              className="w-full flex items-center justify-center py-4 font-bold text-white bg-indigo-600 rounded-xl transition-all hover:bg-indigo-700 active:scale-[0.98]"
+              className="w-full flex items-center justify-center py-4 font-bold text-white bg-gradient-to-r from-amber-700 to-amber-900 rounded-xl transition-all hover:from-amber-800 hover:to-amber-950 active:scale-[0.98] shadow-lg shadow-amber-900/20"
             >
               Verify & See Results
             </button>
@@ -352,33 +361,33 @@ export default function AssessmentApp() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Article Placeholder */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg shadow-slate-200/40 border-2 border-slate-100 flex flex-col justify-between group transition-all hover:border-indigo-300 hover:shadow-indigo-100">
+          <div className="bg-white p-6 rounded-2xl shadow-lg shadow-stone-200/40 border-2 border-stone-100 flex flex-col justify-between group transition-all hover:border-amber-400 hover:shadow-amber-100">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-indigo-50 rounded-xl text-indigo-600 transition-colors group-hover:bg-indigo-600 group-hover:text-white">
+                <div className="p-3 bg-amber-50 rounded-xl text-amber-700 transition-colors group-hover:bg-amber-700 group-hover:text-white">
                   <BarChart className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Article</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-400">Article</span>
               </div>
-              <h3 className="font-bold text-slate-800 mb-2 leading-snug">The Ultimate Guide to {category.title}</h3>
-              <p className="text-sm text-slate-500 line-clamp-2">Learn the exact strategies needed to optimize your insurance portfolio based on your current setup.</p>
+              <h3 className="font-bold text-stone-800 mb-2 leading-snug">The Ultimate Guide to {category.title}</h3>
+              <p className="text-sm text-stone-500 line-clamp-2">Learn the exact strategies needed to optimize your insurance portfolio based on your current setup.</p>
             </div>
-            <button className="mt-6 flex items-center text-sm font-bold text-indigo-600 group-hover:text-indigo-700 transition-colors">
+            <button className="mt-6 flex items-center text-sm font-bold text-amber-700 group-hover:text-amber-800 transition-colors">
               Read Article <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Video Placeholder */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg shadow-slate-200/40 border-2 border-slate-100 flex flex-col justify-between group transition-all hover:border-red-300 hover:shadow-red-100">
+          <div className="bg-white p-6 rounded-2xl shadow-lg shadow-stone-200/40 border-2 border-stone-100 flex flex-col justify-between group transition-all hover:border-red-300 hover:shadow-red-100">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-3 bg-red-50 rounded-xl text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white">
                   <PlayCircle className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">YouTube Video</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-400">YouTube Video</span>
               </div>
-              <h3 className="font-bold text-slate-800 mb-2 leading-snug">Case Study: Reaching {category.title}</h3>
-              <p className="text-sm text-slate-500 line-clamp-2">Watch how top financial planners structure protective assets for clients just like you.</p>
+              <h3 className="font-bold text-stone-800 mb-2 leading-snug">Case Study: Reaching {category.title}</h3>
+              <p className="text-sm text-stone-500 line-clamp-2">Watch how top financial planners structure protective assets for clients just like you.</p>
             </div>
             <button className="mt-6 flex items-center text-sm font-bold text-red-600 group-hover:text-red-700 transition-colors">
               Watch Now <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
@@ -386,16 +395,16 @@ export default function AssessmentApp() {
           </div>
 
           {/* Audio Placeholder */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg shadow-slate-200/40 border-2 border-slate-100 flex flex-col justify-between group transition-all hover:border-emerald-300 hover:shadow-emerald-100">
+          <div className="bg-white p-6 rounded-2xl shadow-lg shadow-stone-200/40 border-2 border-stone-100 flex flex-col justify-between group transition-all hover:border-emerald-300 hover:shadow-emerald-100">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-3 bg-emerald-50 rounded-xl text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Audio / Podcast</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-400">Audio / Podcast</span>
               </div>
-              <h3 className="font-bold text-slate-800 mb-2 leading-snug">Expert Insights on {category.title}</h3>
-              <p className="text-sm text-slate-500 mb-4 line-clamp-2">Listen to our exclusive podcast episode breaking down insurance policies for your specific tier.</p>
+              <h3 className="font-bold text-stone-800 mb-2 leading-snug">Expert Insights on {category.title}</h3>
+              <p className="text-sm text-stone-500 mb-4 line-clamp-2">Listen to our exclusive podcast episode breaking down insurance policies for your specific tier.</p>
             </div>
 
             <audio controls className="w-full h-10 custom-audio-player opacity-80 group-hover:opacity-100 transition-opacity">
@@ -406,19 +415,20 @@ export default function AssessmentApp() {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-indigo-900 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-800 to-slate-900 z-0 opacity-50" />
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-20 z-0" />
+        <div className="bg-gradient-to-br from-amber-800 to-stone-900 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-amber-800/50 to-stone-900/80 z-0" />
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-600 rounded-full blur-3xl opacity-15 z-0" />
+          <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-amber-500 rounded-full blur-3xl opacity-10 z-0" />
 
           <div className="relative z-10 space-y-6">
             <h2 className="text-3xl font-bold">Ready to secure your future?</h2>
-            <p className="text-indigo-200 max-w-md mx-auto">
+            <p className="text-amber-200 max-w-md mx-auto">
               Our experts can help you upgrade from {category.title} to a fully protected financial ecosystem.
             </p>
             <a
               href={`https://wa.me/15550000000?text=Hi, I scored ${score} (${category.title}) on the assessment. I'd like to consult.`}
               target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 font-bold text-indigo-900 bg-emerald-400 rounded-xl transition-all hover:bg-emerald-300 hover:scale-105 shadow-xl shadow-emerald-500/20"
+              className="inline-flex items-center px-8 py-4 font-bold text-amber-900 bg-amber-300 rounded-xl transition-all hover:bg-amber-200 hover:scale-105 shadow-xl shadow-amber-900/30"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
               Discuss via WhatsApp
@@ -432,16 +442,16 @@ export default function AssessmentApp() {
 
   // --- Main Layout ---
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-indigo-200 selection:text-indigo-900 flex flex-col">
+    <div className="min-h-screen bg-[#FBF8F4] font-sans selection:bg-amber-200 selection:text-amber-900 flex flex-col">
       {/* Header */}
       <header className="w-full p-6 flex justify-between items-center max-w-5xl mx-auto">
-        <div className="text-xl font-extrabold text-slate-800 flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
-            <BarChart size={18} />
+        <div className="text-xl font-extrabold text-stone-800 flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-700 to-amber-900 flex items-center justify-center text-white shadow-md shadow-amber-900/20">
+            <ShieldCheck size={18} />
           </div>
-          Growth<span className="text-indigo-600">Stack</span>
+          <span>SIAP<span className="text-amber-700">&</span>TENANG</span>
         </div>
-        <div className="text-xs font-semibold text-slate-400 border border-slate-200 px-3 py-1 rounded-full">
+        <div className="text-xs font-semibold text-stone-400 border border-stone-200 px-3 py-1 rounded-full">
           For Demo Purposes Only
         </div>
       </header>
