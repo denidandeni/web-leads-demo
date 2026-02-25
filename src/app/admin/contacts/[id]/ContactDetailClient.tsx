@@ -225,7 +225,7 @@ export default function ContactDetailClient() {
                                                 onClick={() => setCurrentStage(stage.id)}
                                                 className="flex flex-col items-center gap-3 group focus:outline-none w-20"
                                             >
-                                                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border-2 shadow-sm ${isCurrent ? 'bg-amber-700 border-amber-700 text-white ring-4 ring-amber-100 scale-110' :
+                                                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border-2 shadow-sm ${isCurrent ? 'bg-amber-700 border-amber-700 text-white ring-4 ring-amber-100' :
                                                     isCompleted ? 'bg-amber-100 border-amber-500 text-amber-700' :
                                                         'bg-white border-stone-200 text-stone-400 group-hover:border-stone-300'
                                                     }`}>
