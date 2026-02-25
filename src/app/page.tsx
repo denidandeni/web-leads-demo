@@ -27,6 +27,37 @@ type Question = {
   options: { text: string; points: number }[];
 };
 
+const ARTICLES = [
+  {
+    id: 1,
+    title: "Understanding Critical Illness Coverage in 2026",
+    tag: "Insurance Info",
+    date: "Feb 20, 2026",
+    imageUrl: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+  },
+  {
+    id: 2,
+    title: "How to Build a 6-Month Emergency Fund from Scratch",
+    tag: "Financial Planning",
+    date: "Feb 15, 2026",
+    imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+  },
+  {
+    id: 3,
+    title: "Term Life vs Whole Life: Which is Right for You?",
+    tag: "Protection",
+    date: "Feb 10, 2026",
+    imageUrl: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+  },
+  {
+    id: 4,
+    title: "5 Common Mistakes When Planning Your Estate",
+    tag: "Wealth Management",
+    date: "Feb 05, 2026",
+    imageUrl: "https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+  }
+];
+
 const QUESTIONS: Question[] = [
   {
     id: 1,
@@ -176,35 +207,67 @@ export default function AssessmentApp() {
 
   // --- Render Functions ---
   const renderLanding = () => (
-    <div className="flex flex-col items-center text-center space-y-8 animate-in fade-in duration-700 zoom-in-95">
-      {/* Decorative Islamic Pattern */}
-      <div className="w-24 h-24 relative flex items-center justify-center mb-2">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full opacity-10 animate-pulse" />
-        <div className="absolute inset-2 border-2 border-amber-600/30 rounded-full" />
-        <div className="relative w-14 h-14 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full flex items-center justify-center text-white shadow-lg shadow-amber-900/20">
-          <ShieldCheck size={28} />
+    <div className="flex flex-col items-center animate-in fade-in duration-700 zoom-in-95 w-full space-y-20">
+      {/* Hero Section */}
+      <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto px-6 pt-4">
+        {/* Decorative Islamic Pattern */}
+        <div className="w-24 h-24 relative flex items-center justify-center mb-2">
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full opacity-10 animate-pulse" />
+          <div className="absolute inset-2 border-2 border-amber-600/30 rounded-full" />
+          <div className="relative w-14 h-14 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full flex items-center justify-center text-white shadow-lg shadow-amber-900/20">
+            <ShieldCheck size={28} />
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <div className="text-sm font-bold uppercase tracking-[0.25em] text-amber-700/70">Assessment Kesiapan Finansial</div>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-stone-800 tracking-tight leading-tight">
+            Discover Your <br /><span className="text-amber-800">Financial Security Score</span>
+          </h1>
+        </div>
+        <p className="text-lg text-stone-500 max-w-md mx-auto leading-relaxed">
+          Take our 2-minute assessment to identify gaps in your coverage and protect your family&apos;s future.
+        </p>
+        <button
+          onClick={handleStart}
+          className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl overflow-hidden transition-all hover:from-amber-800 hover:to-amber-950 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-300 shadow-lg shadow-amber-900/20 w-fit mx-auto"
+        >
+          <span className="mr-2 text-lg">Start Assessment</span>
+          <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+        </button>
+
+        <div className="pt-8 text-sm text-stone-400 font-medium italic">
+          For Demo Purposes Only
         </div>
       </div>
 
-      <div className="space-y-3">
-        <div className="text-sm font-bold uppercase tracking-[0.25em] text-amber-700/70">Assessment Kesiapan Finansial</div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-stone-800 tracking-tight leading-tight">
-          Discover Your <br /><span className="text-amber-800">Financial Security Score</span>
-        </h1>
-      </div>
-      <p className="text-lg text-stone-500 max-w-md mx-auto leading-relaxed">
-        Take our 2-minute assessment to identify gaps in your coverage and protect your family&apos;s future.
-      </p>
-      <button
-        onClick={handleStart}
-        className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl overflow-hidden transition-all hover:from-amber-800 hover:to-amber-950 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-300 shadow-lg shadow-amber-900/20"
-      >
-        <span className="mr-2 text-lg">Start Assessment</span>
-        <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-      </button>
+      {/* Articles Carousel Section */}
+      <div className="w-full max-w-5xl mx-auto px-6 pb-12 flex flex-col space-y-6 text-left">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-stone-800">Latest Insights</h2>
+          <button className="text-sm font-bold text-amber-700 hover:text-amber-800 flex items-center group">
+            View All <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
 
-      <div className="pt-8 text-sm text-stone-400 font-medium italic">
-        For Demo Purposes Only
+        {/* Carousel Container */}
+        <div className="flex overflow-x-auto pb-6 -mx-6 px-6 sm:mx-0 sm:px-0 gap-6 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {ARTICLES.map((article) => (
+            <div key={article.id} className="min-w-[280px] w-[280px] sm:min-w-[320px] sm:w-[320px] bg-white rounded-2xl shadow-lg shadow-stone-200/40 border border-stone-100 flex flex-col overflow-hidden snap-start group cursor-pointer hover:border-amber-300 hover:shadow-amber-100 transition-all flex-shrink-0">
+              <div className="h-44 w-full overflow-hidden bg-stone-100 relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="p-5 flex flex-col flex-1">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">{article.tag}</span>
+                  <span className="text-xs text-stone-400 font-medium">{article.date}</span>
+                </div>
+                <h3 className="font-bold text-stone-800 text-lg leading-snug group-hover:text-amber-800 transition-colors line-clamp-2">{article.title}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
