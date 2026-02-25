@@ -197,7 +197,7 @@ export default function ContactDetailClient() {
 
                 <div className="lg:col-span-2 space-y-6">
                     {/* Pipeline / Milestone Progress */}
-                    <div className="border border-stone-200 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl shadow-stone-200/40 relative overflow-hidden">
+                    <div className="border border-stone-200 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl shadow-stone-200/40 relative">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-lg font-bold text-stone-800">Sales Pipeline Stage</h3>
                             <span className="text-xs font-bold text-stone-500 bg-stone-100 px-3 py-1 rounded-full">{LEAD_STAGES.find(s => s.id === currentStage)?.label}</span>
