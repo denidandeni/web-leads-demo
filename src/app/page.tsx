@@ -207,9 +207,8 @@ export default function AssessmentApp() {
 
   // --- Render Functions ---
   const renderLanding = () => (
-    <div className="flex flex-col items-center animate-in fade-in duration-700 zoom-in-95 w-full space-y-20">
-      {/* Hero Section */}
-      <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto px-6 pt-4">
+    <div className="flex flex-col items-center w-full animate-in fade-in duration-700 zoom-in-95">
+      <div className="flex flex-col items-center text-center space-y-8 max-w-2xl mx-auto px-4">
         {/* Decorative Islamic Pattern */}
         <div className="w-24 h-24 relative flex items-center justify-center mb-2">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full opacity-10 animate-pulse" />
@@ -230,7 +229,7 @@ export default function AssessmentApp() {
         </p>
         <button
           onClick={handleStart}
-          className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl overflow-hidden transition-all hover:from-amber-800 hover:to-amber-950 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-300 shadow-lg shadow-amber-900/20 w-fit mx-auto"
+          className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl overflow-hidden transition-all hover:from-amber-800 hover:to-amber-950 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-300 shadow-lg shadow-amber-900/20"
         >
           <span className="mr-2 text-lg">Start Assessment</span>
           <ArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -241,29 +240,29 @@ export default function AssessmentApp() {
         </div>
       </div>
 
-      {/* Articles Carousel Section */}
-      <div className="w-full max-w-5xl mx-auto px-6 pb-12 flex flex-col space-y-6 text-left">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-stone-800">Latest Insights</h2>
-          <button className="text-sm font-bold text-amber-700 hover:text-amber-800 flex items-center group">
-            View All <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+      {/* Article Carousel Section */}
+      <div className="w-full mt-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto animate-in slide-in-from-bottom-12 duration-700 delay-300">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-stone-800">Artikel Pilihan</h2>
+          <button className="text-amber-700 font-semibold hover:text-amber-800 text-sm flex items-center group">
+            Lihat Semua <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        {/* Carousel Container */}
-        <div className="flex overflow-x-auto pb-6 -mx-6 px-6 sm:mx-0 sm:px-0 gap-6 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex overflow-x-auto pb-8 -mx-4 px-4 sm:mx-0 sm:px-0 gap-6 snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <style dangerouslySetInnerHTML={{ __html: `::-webkit-scrollbar { display: none; }` }} />
           {ARTICLES.map((article) => (
-            <div key={article.id} className="min-w-[280px] w-[280px] sm:min-w-[320px] sm:w-[320px] bg-white rounded-2xl shadow-lg shadow-stone-200/40 border border-stone-100 flex flex-col overflow-hidden snap-start group cursor-pointer hover:border-amber-300 hover:shadow-amber-100 transition-all flex-shrink-0">
-              <div className="h-44 w-full overflow-hidden bg-stone-100 relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div key={article.id} className="min-w-[280px] sm:min-w-[320px] bg-white rounded-3xl shadow-lg shadow-stone-200/50 border border-stone-100 overflow-hidden snap-center group transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-900/10 cursor-pointer">
+              <div className="h-48 bg-stone-200 relative overflow-hidden">
+                <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <div className="p-5 flex flex-col flex-1">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">{article.tag}</span>
-                  <span className="text-xs text-stone-400 font-medium">{article.date}</span>
+              <div className="p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="px-3 py-1.5 bg-amber-50 text-amber-700 text-xs font-bold rounded-lg border border-amber-100 uppercase tracking-wider">{article.tag}</span>
+                  <span className="text-xs text-stone-400 font-semibold uppercase tracking-wider">{article.date}</span>
                 </div>
-                <h3 className="font-bold text-stone-800 text-lg leading-snug group-hover:text-amber-800 transition-colors line-clamp-2">{article.title}</h3>
+                <h3 className="font-bold text-lg text-stone-800 line-clamp-2 leading-snug group-hover:text-amber-700 transition-colors">{article.title}</h3>
               </div>
             </div>
           ))}
