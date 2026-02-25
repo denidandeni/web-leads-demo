@@ -1,8 +1,8 @@
 "use client"
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, FileText, LogOut, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { LayoutDashboard, Users, FileText, LogOut, Menu, X, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const NAV_ITEMS = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -12,17 +12,59 @@ const NAV_ITEMS = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
+    const router = useRouter();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    const [isChecking, setIsChecking] = useState(true);
+
+    const isLoginPage = pathname === "/admin/login";
+
+    useEffect(() => {
+        const auth = localStorage.getItem("admin_auth");
+        if (auth === "true") {
+            setIsAuthenticated(true);
+            if (isLoginPage) {
+                router.push("/admin");
+            }
+        } else {
+            setIsAuthenticated(false);
+            if (!isLoginPage) {
+                router.push("/admin/login");
+            }
+        }
+        setIsChecking(false);
+    }, [pathname, isLoginPage, router]);
+
+    const handleLogout = () => {
+        localStorage.removeItem("admin_auth");
+        setIsAuthenticated(false);
+        router.push("/admin/login");
+    };
 
     const isActive = (href: string) => {
         if (href === "/admin") return pathname === "/admin";
         return pathname.startsWith(href);
     };
 
+    // Loading State
+    if (isChecking || isAuthenticated === null) {
+        return (
+            <div className="min-h-screen bg-stone-50 flex items-center justify-center">
+                <Loader2 className="animate-spin text-amber-700" size={32} />
+            </div>
+        );
+    }
+
+    // Login Page Layout (No Sidebar/Nav)
+    if (isLoginPage) {
+        return <>{children}</>;
+    }
+
+    // Dashboard Layout (Authenticated)
     return (
         <div className="min-h-screen bg-stone-50 flex font-sans text-stone-900">
             {/* Desktop Sidebar */}
-            <aside className="w-64 bg-white border-r border-stone-200 flex-col shadow-sm hidden md:flex">
+            <aside className="w-64 bg-white border-r border-stone-200 flex-col shadow-sm hidden md:flex animate-in slide-in-from-left duration-500">
                 <div className="p-6 border-b border-stone-100">
                     <Link href="/admin" className="text-xl font-extrabold text-stone-800 flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg bg-stone-800 flex items-center justify-center text-white">
@@ -50,7 +92,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         );
                     })}
                     <div className="flex-1 mt-auto flex flex-col justify-end pt-10">
-                        <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 w-full transition-all font-medium group">
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 w-full transition-all font-medium group"
+                        >
                             <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
                             Logout
                         </button>
@@ -59,7 +104,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </aside>
 
             {/* Mobile Top Bar */}
-            <div className="fixed top-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-lg border-b border-stone-200 shadow-sm">
+            <div className="fixed top-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-lg border-b border-stone-200 shadow-sm animate-in slide-in-from-top duration-500">
                 <div className="flex items-center justify-between px-4 py-3">
                     <Link href="/admin" className="text-lg font-extrabold text-stone-800 flex items-center gap-2">
                         <div className="w-7 h-7 rounded-lg bg-stone-800 flex items-center justify-center text-white text-sm">
@@ -97,7 +142,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                     </Link>
                                 );
                             })}
-                            <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 w-full transition-all font-medium">
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 w-full transition-all font-medium"
+                            >
                                 <LogOut size={20} />
                                 Logout
                             </button>
@@ -107,7 +155,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
 
             {/* Mobile Bottom Nav */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-lg border-t border-stone-200 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+            <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-lg border-t border-stone-200 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] animate-in slide-in-from-bottom duration-500">
                 <nav className="flex items-center justify-around px-2 py-2">
                     {NAV_ITEMS.map((item) => {
                         const Icon = item.icon;
